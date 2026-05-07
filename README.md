@@ -1,4 +1,4 @@
-# 🎨 UVSQolor — Éditeur de filtres photo
+# 🎨 Pixora — Éditeur de filtres photo
 
 UVSQolor est une application desktop de traitement d'image développée en Python avec Tkinter. Elle permet d'ouvrir une image, d'y appliquer différents filtres (couleur, luminosité, flou, netteté, fusion...) et de sauvegarder le résultat.
 
