@@ -3,13 +3,6 @@ import math
 from scipy.signal import convolve2d 
 
 # Algorithmes de filtre
-def filtre_vert(matrice_pixels):
-    resultat = np.array(matrice_pixels, copy=True) 
-
-    resultat[:,:,0] = 0
-    resultat[:,:,2] = 0
-
-    return resultat
 
 def filtre_sepia(matrice_pixels):
     max_value = float(np.iinfo(matrice_pixels.dtype).max)
@@ -115,6 +108,14 @@ def filtre_nettete_gaussien(matrice_pixels):
 
 # filtre de couleurs 
 
+def filtre_rouge(matrice_pixels):
+    resultat = np.array(matrice_pixels, copy=True) 
+
+    resultat[:,:,1] = 0
+    resultat[:,:,2] = 0
+
+    return resultat
+
 def filtre_vert(matrice_pixels):
     resultat = np.array(matrice_pixels, copy=True) 
 
@@ -131,14 +132,6 @@ def filtre_bleu(matrice_pixels):
 
     return resultat
 
-def filtre_rouge(matrice_pixels):
-    resultat = np.array(matrice_pixels, copy=True) 
-
-    resultat[:,:,1] = 0
-    resultat[:,:,2] = 0
-
-    return resultat
-
 def filtre_noir_blanc(matrice_pixels):
     resultat = np.array(matrice_pixels, copy=True).astype(float)
 
@@ -150,4 +143,11 @@ def filtre_noir_blanc(matrice_pixels):
 
     resultat.clip(0, 255)
 
+    return resultat.astype(np.uint8)
+
+def filtre_avance_rgb(matrice_pixels, rouge, vert, bleu):
+    resultat = np.array(matrice_pixels, copy=True)
+    resultat[:, :, 0] = np.clip(resultat[:, :, 0] * (1 + rouge), 0, 255)
+    resultat[:, :, 1] = np.clip(resultat[:, :, 1] * (1 + vert), 0, 255)
+    resultat[:, :, 2] = np.clip(resultat[:, :, 2] * (1 + bleu), 0, 255)
     return resultat.astype(np.uint8)
