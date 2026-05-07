@@ -45,8 +45,7 @@ def transition_luminosite(valeur_slider):
     global matrice_pixels, matrice_temporaire
 
     x = valeur_slider.get()
-    resultat = filtre_luminosite(matrice_pixels, x)
-    matrice_temporaire = resultat
+    matrice_temporaire = filtre_luminosite(matrice_pixels, x)
     rafraichir(matrice_temporaire, archiver=False)
 
 def transition_contraste(valeur_slider_1, valeur_slider_2):
@@ -54,8 +53,7 @@ def transition_contraste(valeur_slider_1, valeur_slider_2):
 
     x = valeur_slider_1.get()
     y = valeur_slider_2.get()
-    resultat = filtre_contraste(matrice_pixels, x, y)
-    matrice_temporaire = resultat
+    matrice_temporaire = filtre_contraste(matrice_pixels, x, y)
     rafraichir(matrice_temporaire, archiver=False)
 
 # --- Callbacks --- 
