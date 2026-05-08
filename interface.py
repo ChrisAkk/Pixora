@@ -426,6 +426,7 @@ def creer_bouton_sidebar(parent, texte, commande):
     return btn
 
 creer_bouton_sidebar(sidebar, "Ouvrir", callback_ouvrir)
+creer_bouton_sidebar(sidebar, "Retirer", callback_retirer)
 creer_bouton_sidebar(sidebar, "Sauvegarder", callback_sauvegarder)
 tk.Frame(sidebar, bg="#2d3445", height=1).pack(fill="x", padx=15, pady=10) 
 creer_bouton_sidebar(sidebar, "Quitter", callback_quitter)
