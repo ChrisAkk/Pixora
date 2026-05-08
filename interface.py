@@ -1,4 +1,5 @@
 import tkinter as tk
+import sys
 from tkinter import filedialog
 from PIL import Image, ImageTk 
 from filtres import *
@@ -12,6 +13,7 @@ nom_fichier = None
 archive_undo = []
 archive_redo = None
 FONT = "Helvetica"
+CURSOR = "pointinghand" if sys.platform == "darwin" else "hand2"
 
 # Gestion de l'affichage
 def rafraichir(matrice_pixels, archiver=True):
@@ -277,11 +279,11 @@ def callback_avance_rgb():
     frame_boutons = tk.Frame(dialogue_effet, bg="#0f1116")
     frame_boutons.pack(pady=20)
 
-    bouton_appliquer = tk.Label(frame_boutons, text="Appliquer", bg="SlateBlue", fg="white", relief="flat", font=(FONT, 11, "bold"), padx=20, pady=8, cursor="pointinghand")
+    bouton_appliquer = tk.Label(frame_boutons, text="Appliquer", bg="SlateBlue", fg="white", relief="flat", font=(FONT, 11, "bold"), padx=20, pady=8, cursor=CURSOR)
     bouton_appliquer.bind("<Button-1>", lambda x: applique_effet())
     bouton_appliquer.pack(side="left", padx=10)
 
-    bouton_annuler = tk.Label(frame_boutons, text="Annuler", bg="DimGray", fg="white", relief="flat", font=(FONT, 11, "bold"), padx=20, pady=8, cursor="pointinghand")
+    bouton_annuler = tk.Label(frame_boutons, text="Annuler", bg="DimGray", fg="white", relief="flat", font=(FONT, 11, "bold"), padx=20, pady=8, cursor=CURSOR)
     bouton_annuler.bind("<Button-1>", lambda x: annule_effet())
     bouton_annuler.pack(side="left", padx=10)
 
@@ -318,12 +320,12 @@ def callback_filtre_luminosite():
     frame_boutons = tk.Frame(dialogue_effet, bg="#0f1116")
     frame_boutons.pack(pady=20)
 
-    bouton_appliquer = tk.Label(frame_boutons, text="Appliquer", bg="SlateBlue", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor="pointinghand")
-    bouton_appliquer.bind("<Button-1>", lambda e: applique_effet())
+    bouton_appliquer = tk.Label(frame_boutons, text="Appliquer", bg="SlateBlue", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor=CURSOR)
+    bouton_appliquer.bind("<Button-1>", lambda x: applique_effet())
     bouton_appliquer.pack(side=tk.LEFT, padx=10)
 
-    bouton_annuler = tk.Label(frame_boutons, text="Annuler", bg="#252b38", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor="pointinghand")
-    bouton_annuler.bind("<Button-1>", lambda e: annule_effet())
+    bouton_annuler = tk.Label(frame_boutons, text="Annuler", bg="#252b38", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor=CURSOR)
+    bouton_annuler.bind("<Button-1>", lambda x: annule_effet())
     bouton_annuler.pack(side=tk.LEFT, padx=10)
 
 def callback_filtre_contraste():
@@ -356,11 +358,11 @@ def callback_filtre_contraste():
     frame_boutons = tk.Frame(dialogue_effet, bg="#0f1116")
     frame_boutons.pack(pady=20)
 
-    bouton_appliquer = tk.Label(frame_boutons, text="Appliquer", bg="SlateBlue", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor="pointinghand")
+    bouton_appliquer = tk.Label(frame_boutons, text="Appliquer", bg="SlateBlue", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor=CURSOR)
     bouton_appliquer.bind("<Button-1>", lambda e: applique_effet())
     bouton_appliquer.pack(side=tk.LEFT, padx=10)
 
-    bouton_annuler = tk.Label(frame_boutons, text="Annuler", bg="#252b38", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor="pointinghand")
+    bouton_annuler = tk.Label(frame_boutons, text="Annuler", bg="#252b38", fg="white", font=(FONT, 11, "bold"), padx=20, pady=8, cursor=CURSOR)
     bouton_annuler.bind("<Button-1>", lambda e: annule_effet())
     bouton_annuler.pack(side=tk.LEFT, padx=10)
 
@@ -407,14 +409,16 @@ fenetre_principale.geometry("1200x850")
 fenetre_principale.title("Pixaura")
 fenetre_principale.configure(bg="#0f1116")
 
-barre_haut = tk.Frame(fenetre_principale, bg="#161a22", height=50)
+barre_haut = tk.Frame(fenetre_principale, bg="#161a22", height=100)
 barre_haut.pack(fill="x", side="top")
-label_titre = tk.Label(barre_haut, text="Pixaura - Éditeur d'image", bg="#161a22", fg="white", font=(FONT, 14, "bold"))
+label_titre = tk.Label(barre_haut, text="Pixaura - Éditeur d'image", bg="#161a22", fg="white", font=(FONT, 20, "bold"))
 label_titre.pack(side="left", padx=20)
 
 frame_intro = tk.Frame(fenetre_principale, bg="#0f1116")
 frame_intro.place(relx=0.5, rely=0.5, anchor="center")
-tk.Label(frame_intro, text="Ouvrez une image pour commencez", font=(FONT, 26, "bold"), fg="white", bg="#0f1116").pack()
+bouton_ouvrir = tk.Label(frame_intro, text="Ouvrez une image pour commencez", font=(FONT, 26, "bold"), fg="gray", bg="#0f1116", cursor=CURSOR)
+bouton_ouvrir.bind("<Button-1>", lambda x: callback_ouvrir())
+bouton_ouvrir.pack()
 
 frame_principal = tk.Frame(fenetre_principale, bg="#0f1116")
 
