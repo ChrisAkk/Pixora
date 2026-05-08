@@ -405,20 +405,44 @@ def callback_filtre_nettete_gaussien():
 # Création de la fenêtre principale                                                     
 
 fenetre_principale = tk.Tk()
-fenetre_principale.geometry("1200x850")
+fenetre_principale.geometry("1355x796")
 fenetre_principale.title("Pixaura")
 fenetre_principale.configure(bg="#0f1116")
 
-barre_haut = tk.Frame(fenetre_principale, bg="#161a22", height=100)
-barre_haut.pack(fill="x", side="top")
+barre_haut = tk.Frame(fenetre_principale, bg="#161a22")
+barre_haut.pack(fill="x", side="top", ipady=15)
 label_titre = tk.Label(barre_haut, text="Pixaura - Éditeur d'image", bg="#161a22", fg="white", font=(FONT, 20, "bold"))
 label_titre.pack(side="left", padx=20)
 
+sidebar = tk.Frame(fenetre_principale, bg="#161a22", width=150)
+sidebar.pack(side="left", fill="y")
+
+def creer_bouton_sidebar(parent, texte, commande):
+    btn = tk.Label(parent, text=texte, bg="#161a22", fg="#cccccc", font=(FONT, 11), pady=10, cursor=CURSOR)
+    btn.pack(fill="x", padx=10)
+    btn.bind("<Button-1>", lambda x: commande())
+    btn.bind("<Enter>", lambda x: btn.config(bg="#2d3445", fg="white"))
+    btn.bind("<Leave>", lambda x: btn.config(bg="#161a22", fg="#cccccc"))
+    return btn
+
+creer_bouton_sidebar(sidebar, "Ouvrir", callback_ouvrir)
+creer_bouton_sidebar(sidebar, "Sauvegarder", callback_sauvegarder)
+tk.Frame(sidebar, bg="#2d3445", height=1).pack(fill="x", padx=15, pady=10) 
+creer_bouton_sidebar(sidebar, "Quitter", callback_quitter)
+
+zone_travail = tk.Frame(fenetre_principale, bg="#0f1116")
+zone_travail.pack(side="right", expand=True, fill="both")
+
 frame_intro = tk.Frame(fenetre_principale, bg="#0f1116")
 frame_intro.place(relx=0.5, rely=0.5, anchor="center")
-bouton_ouvrir = tk.Label(frame_intro, text="Ouvrez une image pour commencez", font=(FONT, 26, "bold"), fg="gray", bg="#0f1116", cursor=CURSOR)
+
+img_ouvrir = Image.open("img/open.png")
+img_ouvrir = img_ouvrir.resize((800, 500), Image.Resampling.LANCZOS)
+photo_ouvrir = ImageTk.PhotoImage(img_ouvrir)
+bouton_ouvrir = tk.Label(frame_intro, image=photo_ouvrir, bg="#0f1116", cursor=CURSOR)
+bouton_ouvrir.image = photo_ouvrir
+bouton_ouvrir.pack(pady=10)
 bouton_ouvrir.bind("<Button-1>", lambda x: callback_ouvrir())
-bouton_ouvrir.pack()
 
 frame_principal = tk.Frame(fenetre_principale, bg="#0f1116")
 
