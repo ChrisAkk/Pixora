@@ -119,13 +119,14 @@ def callback_ouvrir():
         rafraichir(matrice_pixels)
 
 def callback_sauvegarder():
-    global matrice_pixels 
+    global matrice_pixels
 
-    chemin = filedialog.asksaveasfilename(title="Sauvergarder l'image", defaultextension=".png", filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg"), ("All files", "*.*")])
+    if matrice_pixels is not None:
+        chemin = filedialog.asksaveasfilename(title="Sauvergarder l'image", defaultextension=".png", filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg"), ("All files", "*.*")])
 
-    if chemin:
-        image = Image.fromarray(matrice_pixels)
-        image.save(chemin)
+        if chemin:
+            image = Image.fromarray(matrice_pixels)
+            image.save(chemin)
 
 def callback_quitter():
     fenetre_principale.destroy()
@@ -434,7 +435,7 @@ creer_bouton_sidebar(sidebar, "Quitter", callback_quitter)
 zone_travail = tk.Frame(fenetre_principale, bg="#0f1116")
 zone_travail.pack(side="right", expand=True, fill="both")
 
-frame_intro = tk.Frame(fenetre_principale, bg="#0f1116")
+frame_intro = tk.Frame(zone_travail, bg="#0f1116")
 frame_intro.place(relx=0.5, rely=0.5, anchor="center")
 
 img_ouvrir = Image.open("img/open.png")
