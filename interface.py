@@ -77,6 +77,9 @@ def charger():
 
     nom_fichier = str(filedialog.askopenfilename(title="Ouvrir une image"))
 
+    if nom_fichier == "":
+        return
+
     if nom_fichier != None:
         image_temp = Image.open(nom_fichier)
 
